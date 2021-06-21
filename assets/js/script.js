@@ -13,7 +13,6 @@ nextButton.addEventListener('click', () => {
 })
 
 function startGame() {
-    console.log('Started!')
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -24,7 +23,7 @@ function startGame() {
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
-  }
+}
 
 function showQuestion(question) {
     questionElement.innerText = question.question
@@ -32,7 +31,7 @@ function showQuestion(question) {
         const button = document.createElement('button')
         button.innerText = answer.text
         button.classList.add('btn')
-        if(answer.correct) {
+        if (answer.correct) {
             button.dataset.correct = answer.correct
         }
         button.addEventListener('click', selectAnswer)
@@ -44,27 +43,27 @@ function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
     while (answerButtonsElement.firstChild)
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
 }
 
-function selectAnswer() {
+function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if(shuffledQuestions.length > currentQuestionIndex + 1) {
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
         startButton.innerText = 'Restart'
-        nextButton.classList.remove('hide')
+        startButton.classList.remove('hide')
     }
 }
 
 function setStatusClass(element, correct) {
     clearStatusClass(element)
-    if(correct) {
+    if (correct) {
         element.classList.add('correct')
     } else {
         element.classList.add('wrong')
@@ -76,37 +75,68 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
-const questions = [
-    {
-      question: 'What is 2 + 2?',
-      answers: [
-        { text: '4', correct: true },
-        { text: '22', correct: false }
-      ]
+const questions = [{
+        question: 'What is 2 + 2?',
+        answers: [{
+                text: '4',
+                correct: true
+            },
+            {
+                text: '22',
+                correct: false
+            }
+        ]
     },
     {
-      question: 'Who is the best YouTuber?',
-      answers: [
-        { text: 'Web Dev Simplified', correct: true },
-        { text: 'Traversy Media', correct: true },
-        { text: 'Dev Ed', correct: true },
-        { text: 'Fun Fun Function', correct: true }
-      ]
+        question: 'Who is the best YouTuber?',
+        answers: [{
+                text: 'Web Dev Simplified',
+                correct: true
+            },
+            {
+                text: 'Traversy Media',
+                correct: true
+            },
+            {
+                text: 'Dev Ed',
+                correct: true
+            },
+            {
+                text: 'Fun Fun Function',
+                correct: true
+            }
+        ]
     },
     {
-      question: 'Is web development fun?',
-      answers: [
-        { text: 'Kinda', correct: false },
-        { text: 'YES!!!', correct: true },
-        { text: 'Um no', correct: false },
-        { text: 'IDK', correct: false }
-      ]
+        question: 'Is web development fun?',
+        answers: [{
+                text: 'Kinda',
+                correct: false
+            },
+            {
+                text: 'YES!!!',
+                correct: true
+            },
+            {
+                text: 'Um no',
+                correct: false
+            },
+            {
+                text: 'IDK',
+                correct: false
+            }
+        ]
     },
     {
-      question: 'What is 4 * 2?',
-      answers: [
-        { text: '6', correct: false },
-        { text: '8', correct: true }
-      ]
+        question: 'What is 4 * 2?',
+        answers: [{
+                text: '6',
+                correct: false
+            },
+            {
+                text: '8',
+                correct: true
+            }
+        ]
     }
-  ]
+]
